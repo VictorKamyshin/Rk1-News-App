@@ -23,7 +23,11 @@
         <activity
             android:name=".NewsActivity"
             android:label="@string/title_activity_news"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name=".NewsIntentService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

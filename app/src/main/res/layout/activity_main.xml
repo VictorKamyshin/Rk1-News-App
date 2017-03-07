@@ -30,12 +30,32 @@
         android:layout_centerHorizontal="true"
         android:text="@string/pick_theme"/>
 
+
     <TextView
-        android:text="@string/news_mock"
+        android:text="@string/news_date_mock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_news_date"
+        android:layout_above="@+id/btn_pick_theme"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="14dp" />
+
+
+    <TextView
+        android:text="@string/news_text_mock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_news_text"
+        android:layout_above="@+id/text_news_date"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="14dp" />
+
+    <TextView
+        android:text="@string/news_title_mock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/text_news_title"
-        android:layout_above="@+id/btn_pick_theme"
+        android:layout_above="@+id/text_news_text"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="14dp" />
 
