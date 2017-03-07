@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import ru.mail.weather.lib.News;
 import ru.mail.weather.lib.Storage;
 import ru.mail.weather.lib.Scheduler;
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_pick_theme).setOnClickListener(onThemeClick);
         findViewById(R.id.btn_start_service).setOnClickListener(backgroundUpdateTurnOn);
         findViewById(R.id.btn_stop_service).setOnClickListener(backgroundUpdateTurnOff);
+        findViewById(R.id.btn_refresh_news).setOnClickListener(refreshNews);
     }
 
     @Override
@@ -74,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
 
         ((TextView) findViewById(R.id.text_news_title)).setText(news.getTitle());
         ((TextView) findViewById(R.id.text_news_text)).setText(news.getBody());
-       // ((TextView) findViewById(R.id.text_news_date)).setText(news.getDate());
+        String dateString = new SimpleDateFormat("MM/dd/yyyy").format(new Date(news.getDate()));
+        ((TextView) findViewById(R.id.text_news_date)).setText(dateString);
         printTopic();
     }
 
@@ -117,6 +122,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             switchScheduler(false);
+        }
+    };
+
+    private final View.OnClickListener refreshNews = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(MainActivity.this, NewsIntentService.class);
+            startService(intent);
+
         }
     };
 }

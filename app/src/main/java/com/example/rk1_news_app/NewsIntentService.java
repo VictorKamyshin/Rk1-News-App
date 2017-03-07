@@ -28,7 +28,6 @@ public class NewsIntentService extends IntentService {
                 Storage.getInstance(getApplicationContext()).saveNews(news);
                 Intent resultIntent = new Intent(MainActivity.ACTION_GET_NEWS);
                 sendBroadcast(resultIntent);
-                Log.d("intentService","I got news and want to send it to main activity");
             } catch (IOException e) {
                 e.printStackTrace();
             }
