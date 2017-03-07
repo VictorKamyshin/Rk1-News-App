@@ -1,12 +1,14 @@
 package com.example.rk1_news_app;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+
+import ru.mail.weather.lib.News;
+import ru.mail.weather.lib.Storage;
+import ru.mail.weather.lib.Topics;
 
 public class NewsActivity extends AppCompatActivity {
 
@@ -15,15 +17,18 @@ public class NewsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
-        findViewById(R.id.btn_pick_science).setOnClickListener(onThemeClick);
-        findViewById(R.id.btn_pick_culture).setOnClickListener(onThemeClick);
-        findViewById(R.id.btn_pick_sport).setOnClickListener(onThemeClick);
+        findViewById(R.id.btn_pick_auto).setOnClickListener(onThemeClick);
+        findViewById(R.id.btn_pick_it).setOnClickListener(onThemeClick);
+        findViewById(R.id.btn_pick_health).setOnClickListener(onThemeClick);
     }
 
     private final View.OnClickListener onThemeClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-        finish();
+            String topic = ((Button)view).getText().toString();
+            Storage.getInstance(NewsActivity.this).saveCurrentTopic(topic);
+            Log.d("2",topic);
+            finish();
         }
     };
 

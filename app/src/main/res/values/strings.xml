@@ -7,7 +7,8 @@
     <string name="pick_theme">Pick Theme</string>
     <string name="news_mock"> Text view </string>
     <string name="title_activity_news">NewsActivity</string>
-    <string name="btn_pick_science">Science!</string>
-    <string name="btn_pick_culture">Culture!</string>
-    <string name="btn_pick_sport">Sport!</string>
+    <string name="btn_pick_auto">auto</string>
+    <string name="btn_pick_it">it</string>
+    <string name="btn_pick_health">health</string>
+    <string name="btn_refresh_news">Refresh news</string>
 </resources>

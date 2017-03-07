@@ -12,8 +12,8 @@
     tools:context="com.example.rk1_news_app.MainActivity">
 
     <Button
-        android:id="@+id/btn_pick_science"
-        android:text="@string/btn_pick_science"
+        android:id="@+id/btn_pick_auto"
+        android:text="@string/btn_pick_auto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -21,21 +21,21 @@
         android:layout_marginBottom="14dp"/>
 
     <Button
-        android:id="@+id/btn_pick_culture"
-        android:text="@string/btn_pick_culture"
+        android:id="@+id/btn_pick_it"
+        android:text="@string/btn_pick_it"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/btn_pick_science"
+        android:layout_below="@+id/btn_pick_auto"
         android:layout_marginBottom="14dp"/>
 
     <Button
-        android:id="@+id/btn_pick_sport"
-        android:text="@string/btn_pick_sport"
+        android:id="@+id/btn_pick_health"
+        android:text="@string/btn_pick_health"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/btn_pick_culture"
+        android:layout_below="@+id/btn_pick_it"
         android:layout_marginBottom="14dp"/>
 
 
