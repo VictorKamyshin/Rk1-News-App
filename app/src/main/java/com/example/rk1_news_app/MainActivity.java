@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate");
         setContentView(R.layout.activity_main);
         findViewById(R.id.btn_pick_theme).setOnClickListener(onThemeClick);
         findViewById(R.id.btn_start_service).setOnClickListener(backgroundUpdateTurnOn);
@@ -66,12 +68,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onStop");
+        Log.d(TAG, "onDestroy");
         if(broadcastReceiver != null) {
             unregisterReceiver(broadcastReceiver);
             broadcastReceiver = null;
         }
+        super.onDestroy();
     }
 
     private void printTopic(){
@@ -141,4 +143,5 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
 }
