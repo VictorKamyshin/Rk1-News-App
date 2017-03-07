@@ -2,8 +2,6 @@ package com.example.rk1_news_app;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.content.Context;
-import android.util.Log;
 
 import java.io.IOException;
 

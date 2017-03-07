@@ -2,13 +2,9 @@ package com.example.rk1_news_app;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
-import ru.mail.weather.lib.News;
 import ru.mail.weather.lib.Storage;
-import ru.mail.weather.lib.Topics;
 
 public class NewsActivity extends AppCompatActivity {
 
@@ -27,7 +23,6 @@ public class NewsActivity extends AppCompatActivity {
         public void onClick(View view) {
             String topic = ((Button)view).getText().toString();
             Storage.getInstance(NewsActivity.this).saveCurrentTopic(topic);
-            Log.d("2",topic);
             finish();
         }
     };

@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static boolean backgroundUpdate = false;
 
+    private String topic;
+
     private BroadcastReceiver broadcastReceiver;
 
     private final static long updateTime = 5_000L;
@@ -38,11 +40,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_start_service).setOnClickListener(backgroundUpdateTurnOn);
         findViewById(R.id.btn_stop_service).setOnClickListener(backgroundUpdateTurnOff);
         findViewById(R.id.btn_refresh_news).setOnClickListener(refreshNews);
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -51,14 +49,24 @@ public class MainActivity extends AppCompatActivity {
         };
         IntentFilter intentFilter = new IntentFilter(ACTION_GET_NEWS);
         registerReceiver(broadcastReceiver, intentFilter);
-
-        printTopic();
+        topic = Storage.getInstance(this).loadCurrentTopic();
         loadNews();
+
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onStart() {
+        super.onStart();
+        if(!topic.equals(Storage.getInstance(this).loadCurrentTopic())){
+            printTopic();
+            topic = Storage.getInstance(this).loadCurrentTopic();
+            loadNews();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
         Log.d(TAG, "onStop");
         if(broadcastReceiver != null) {
             unregisterReceiver(broadcastReceiver);
