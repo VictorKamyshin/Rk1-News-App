@@ -13,15 +13,18 @@ import android.widget.TextView;
 
 import ru.mail.weather.lib.News;
 import ru.mail.weather.lib.Storage;
+import ru.mail.weather.lib.Scheduler;
 
 public class MainActivity extends AppCompatActivity {
     public static final String ACTION_GET_NEWS = "action.GET_NEWS";
 
     private final static String TAG = MainActivity.class.getSimpleName();
 
-    private final static boolean backgroundUpdate = false;
+    private static boolean backgroundUpdate = false;
 
     private BroadcastReceiver broadcastReceiver;
+
+    private final static long updateTime = 5_000L;
 
 
     @Override
@@ -29,7 +32,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findViewById(R.id.btn_pick_theme).setOnClickListener(onThemeClick);
+        findViewById(R.id.btn_start_service).setOnClickListener(backgroundUpdateTurnOn);
+        findViewById(R.id.btn_stop_service).setOnClickListener(backgroundUpdateTurnOff);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -38,12 +47,7 @@ public class MainActivity extends AppCompatActivity {
         };
         IntentFilter intentFilter = new IntentFilter(ACTION_GET_NEWS);
         registerReceiver(broadcastReceiver, intentFilter);
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d(TAG, Storage.getInstance(this).loadCurrentTopic());
         printTopic();
         loadNews();
     }
@@ -79,12 +83,40 @@ public class MainActivity extends AppCompatActivity {
         startService(intent);
     }
 
+    private void switchScheduler(boolean newState){
+        if(MainActivity.backgroundUpdate != newState) {
+            MainActivity.backgroundUpdate = newState;
+            Scheduler scheduler = Scheduler.getInstance();
+            Intent intent = new Intent(MainActivity.this, NewsIntentService.class);
+
+            if (newState) {
+                scheduler.schedule(this, intent, updateTime);
+            } else {
+                scheduler.unschedule(this, intent);
+            }
+        }
+    }
+
 
     private final View.OnClickListener onThemeClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             final Intent intent = new Intent(MainActivity.this, NewsActivity.class);
             startActivity(intent);
+        }
+    };
+
+    private final View.OnClickListener backgroundUpdateTurnOn = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switchScheduler(true);
+        }
+    };
+
+    private final View.OnClickListener backgroundUpdateTurnOff = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switchScheduler(false);
         }
     };
 }
